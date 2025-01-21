@@ -1,37 +1,40 @@
-const UserContainer = document.querySelectorAll('container');
+const UserContainer = document.querySelectorAll('container')
 
 const comments = [
-  {
-    name: '@Sergei_4',
-    comment: 'Благодарю вас за видео',
-    liked: { state: true, counter: 7 },
-    date: new Date().toLocaleString()
-  },
-  {
-    name: '@realgameplay1383',
-    comment: 'Хорошо подобранные темы и их разбор. Спасибо',
-    liked: { state: false, counter: 0 },
-    date: new Date().toLocaleString()
-  },
-  {
-    name: '@KonstK.Y.T',
-    comment: 'В последнее время торговал мало, Я не знаю в какое время торгуются фьючерсы, но я эксперт, который вам расскажет про фьючерсы...',
-    liked: { state: false, counter: 0 },
-    date: new Date().toLocaleString()
-  },
-  {
-    name: '@АнтонинаЗахаренкова-т3х',
-    comment: 'Вы можете поделиться стратегией торговли фьючерсами',
-    liked: { state: true, counter: 1 },
-    date: new Date().toLocaleString()
-  }
-];
+    {
+        name: '@Sergei_4',
+        comment: 'Благодарю вас за видео',
+        liked: { state: true, counter: 7 },
+        date: new Date().toLocaleString(),
+    },
+    {
+        name: '@realgameplay1383',
+        comment: 'Хорошо подобранные темы и их разбор. Спасибо',
+        liked: { state: false, counter: 0 },
+        date: new Date().toLocaleString(),
+    },
+    {
+        name: '@KonstK.Y.T',
+        comment:
+            'В последнее время торговал мало, Я не знаю в какое время торгуются фьючерсы, но я эксперт, который вам расскажет про фьючерсы...',
+        liked: { state: false, counter: 0 },
+        date: new Date().toLocaleString(),
+    },
+    {
+        name: '@АнтонинаЗахаренкова-т3х',
+        comment: 'Вы можете поделиться стратегией торговли фьючерсами',
+        liked: { state: true, counter: 1 },
+        date: new Date().toLocaleString(),
+    },
+]
 
 function renderComments() {
-  const container = document.getElementById('container');
-  container.innerHTML = ''; // Очищаем контейнер перед повторным рендером
-  // Формируем HTML-разметку
-  container.innerHTML = comments.map((coment, index) => `
+    const container = document.getElementById('container')
+    container.innerHTML = '' // Очищаем контейнер перед повторным рендером
+    // Формируем HTML-разметку
+    container.innerHTML = comments
+        .map(
+            (coment, index) => `
     <div class="comments">
             <h3 class="name">${coment.name}</h3>
             <p class="comment">${coment.comment}</p>
@@ -52,58 +55,54 @@ function renderComments() {
                
             </div>
       </div> 
-  `).join(""); // склеивам массив в одну строку с помощью join  
+  `,
+        )
+        .join('') // склеивам массив в одну строку с помощью join
 
-  const likeButtons = document.querySelectorAll('.likebutton');
-  likeButtons.forEach((button) => {
-    button.addEventListener('click', handleLikeClick);
-  });
+    const likeButtons = document.querySelectorAll('.likebutton')
+    likeButtons.forEach((button) => {
+        button.addEventListener('click', handleLikeClick)
+    })
 }
 
 function handleLikeClick(event) {
-  const index = event.currentTarget.dataset.index; // Получаем индекс комментария
-  const coment = comments[index];
-  // Изменяем состояние лайка и счетчик
-  coment.liked.state = !coment.liked.state;
-  coment.liked.counter += coment.liked.state ? 1 : -1;
+    const index = event.currentTarget.dataset.index // Получаем индекс комментария
+    const coment = comments[index]
+    // Изменяем состояние лайка и счетчик
+    coment.liked.state = !coment.liked.state
+    coment.liked.counter += coment.liked.state ? 1 : -1
 
-  renderComments(); // Перерисовываем комментарии
+    renderComments() // Перерисовываем комментарии
 }
 
-const nameInput = document.getElementById('name');
-const commentInput = document.getElementById('comment-box-text');
-const addCommentButton = document.getElementById('comment-box-button');
+const nameInput = document.getElementById('name')
+const commentInput = document.getElementById('comment-box-text')
+const addCommentButton = document.getElementById('comment-box-button')
 
 addCommentButton.addEventListener('click', (event) => {
-  event.preventDefault(); // Предотвращаем отправку формы
-  const name = nameInput.value.trim();
-  const commentText = commentInput.value.trim();
+    event.preventDefault() // Предотвращаем отправку формы
+    const name = nameInput.value.trim()
+    const commentText = commentInput.value.trim()
 
-  if (name === '' || commentText === '') {
-    alert('Пожалуйста, заполните оба поля!');
-    return;
-  }
+    if (name === '' || commentText === '') {
+        alert('Пожалуйста, заполните оба поля!')
+        return
+    }
 
-  // Добавляем новый комментарий в массив
-  comments.push({
-    name,
-    comment: commentText,
-    liked: { state: false, counter: 0 },
-    date: new Date().toLocaleString(),
-  });
+    // Добавляем новый комментарий в массив
+    comments.push({
+        name,
+        comment: commentText,
+        liked: { state: false, counter: 0 },
+        date: new Date().toLocaleString(),
+    })
 
-  // Очищаем поля ввода
-  nameInput.value = '';
-  commentInput.value = '';
+    // Очищаем поля ввода
+    nameInput.value = ''
+    commentInput.value = ''
 
-  // Перерисовываем комментарии
-  renderComments();
-});
+    // Перерисовываем комментарии
+    renderComments()
+})
 
-renderComments() ;// Вызов функции рендеринга
-
-
-
-
-
-
+renderComments() // Вызов функции рендеринга
