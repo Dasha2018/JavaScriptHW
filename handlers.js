@@ -93,7 +93,7 @@ export function enableCommentReplyFeature() {
     commentElements.forEach((commentEl, index) => {
         commentEl.addEventListener('click', () => {
             const { name, comment } = comments[index]
-            commentInput.value = `@${name} ${comment}>` // Подставляем текст комментария с упоминанием автора
+            commentInput.value = `@${name} ${comment}>`
             commentInput.focus() // Фокусируемся на поле ввода
         })
     })
