@@ -2,7 +2,6 @@ import { sanitizeInput } from './utils.js'
 import { updateComments } from './data.js'
 import { comments } from './data.js'
 import { postComment } from './api.js'
-
 export function setupAddCommentHandler(renderComments) {
     const nameInput = document.getElementById('name')
     const commentInput = document.getElementById('comment-box-text')
