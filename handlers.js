@@ -2,7 +2,6 @@ import { sanitizeInput } from './utils.js'
 import { updateComments } from './data.js'
 import { comments } from './data.js'
 import { postComment } from './api.js'
-
 export function setupAddCommentHandler(renderComments) {
     const nameInput = document.getElementById('name')
     const commentInput = document.getElementById('comment-box-text')
@@ -93,7 +92,7 @@ export function enableCommentReplyFeature() {
     commentElements.forEach((commentEl, index) => {
         commentEl.addEventListener('click', () => {
             const { name, comment } = comments[index]
-            commentInput.value = `@${name} ${comment}>` // Подставляем текст комментария с упоминанием автора
+            commentInput.value = `@${name} ${comment}>`
             commentInput.focus() // Фокусируемся на поле ввода
         })
     })
