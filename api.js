@@ -3,6 +3,9 @@ const host = 'https://wedev-api.sky.pro/api/v1/Dasha2018'
 export const fetchComments = () => {
     return fetch(host + '/comments')
         .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера! Status: ${response.status}`)
+            }
             return response.json()
         })
         .then((responseData) => {
@@ -24,6 +27,10 @@ export const fetchComments = () => {
                 }
             })
             return appComments
+        })
+        .catch((error) => {
+            console.error('Error fetching comments:', error)
+            return []
         })
 }
 
