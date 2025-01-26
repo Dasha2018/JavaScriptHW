@@ -39,6 +39,7 @@ export function setupAddCommentHandler(renderComments) {
     addCommentButton.addEventListener('click', async (event) => {
         event.preventDefault()
 
+        // Валидация данных
         const name = sanitizeInput(nameInput.value.trim())
         const comment = sanitizeInput(commentInput.value.trim())
 
@@ -47,23 +48,38 @@ export function setupAddCommentHandler(renderComments) {
             return
         }
 
-        document.querySelector('.comment-loading').style.display = 'block'
-        document.querySelector('.comment-box-content').style.display = 'none'
+        const commentLoading = document.querySelector('.comment-loading')
+        const commentBoxContent = document.querySelector('.comment-box-content')
+
+        // Вспомогательные функции для управления стилями
+        const showLoading = () => {
+            commentLoading.style.display = 'block'
+            commentBoxContent.style.display = 'none'
+        }
+
+        const hideLoading = () => {
+            commentLoading.style.display = 'none'
+            commentBoxContent.style.display = 'flex'
+        }
+
+        // Показываем индикатор загрузки
+        showLoading()
 
         try {
+            // Пытаемся отправить комментарий
             const data = await postCommentWithRetry(comment, name)
+
             // Если запрос успешен
-            document.querySelector('.comment-loading').style.display = 'none'
-            document.querySelector('.comment-box-content').style.display =
-                'flex'
+            hideLoading()
             updateComments(data)
             renderComments()
+
+            // Очищаем поля ввода
             nameInput.value = ''
             commentInput.value = ''
         } catch (error) {
-            document.querySelector('.comment-loading').style.display = 'none'
-            document.querySelector('.comment-box-content').style.display =
-                'flex'
+            // Скрываем индикатор загрузки при ошибке
+            hideLoading()
 
             // Обработка ошибок
             if (error.message === 'Failed to fetch at postComment') {
